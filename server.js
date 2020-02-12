@@ -42,9 +42,20 @@ mongoose.connect(MONGODB_URI);
 // mongoose.connect("mongodb://localhost/MongooseScraper", { useNewUrlParser: true });
 
 // All the routes go here
+
 app.get("/", function(req, res) {
-  res.send("Hello scraper");
+  // db.Article.find({})
+  db.Article.find({}).sort({'_id': -1})
+  .then(function(dbNews) {
+    var hbsObject = dbNews
+    console.log(dbNews);
+    // res.render("index", {data: dbNews});
+    res.render("index", {dbNews});
+  })
 });
+
+// .find().sort({date:-1}).
+
 
 // Scrape data from one site and place it into the mongodb db
 app.get("/scrape", function(req, res) {
@@ -69,21 +80,86 @@ app.get("/scrape", function(req, res) {
       console.log(result);
 
       // Create a new article using the result object built from scraping
-      // db.Article.create(result)
-      // .then(function(dbNews) {
-      //   // View the added result in the console
-      //   console.log(dbNews);
-      // })
-      // .catch(function(err) {
-      //   // If an error ocurred, log it
-      //   console.log(err)
-      // });
+      db.Article.create(result)
+      .then(function(dbNews) {
+        // View the added result in the console
+        console.log(dbNews);
+        res.json(dbNews);
+      })
+      .catch(function(err) {
+        // If an error ocurred, log it
+        console.log(err)
+        res.end();
+      });
     });
   });
 
   // Send a "Scrape Complete" message to the browser
-  res.send("Scrape Complete");
+  res.redirect("/");
 });
+
+// Route for getting all Articles from the db
+app.get("/articles", function(req, res) {
+  // TODO: Finish the route so it grabs all of the articles
+  db.Article.find({})
+  .then(function(dbArticle) {
+    // View the added result in the console
+    console.log(dbArticle);
+    res.json(dbArticle);
+  })
+  .catch(function(err) {
+    // If an error occurred, log it
+    res.json(err);
+    
+  });
+  
+});
+
+// Route for grabbing a specific Article by id, populate it with it's note
+app.get("/articles/:id", function(req, res) {
+  // TODO
+  // ====
+  // Finish the route so it finds one article using the req.params.id,
+  // and run the populate method with "note",
+  // then responds with the article with the note included
+  var artId = req.params.id
+
+  db.Article.findOne({"_id": artId})
+  .populate('note')
+  .then(function(dbArticle) {
+    // View the added result in the console
+    console.log(dbArticle);
+    res.json(dbArticle);
+  })
+  .catch(function(err) {
+    // If an error occurred, log it
+    res.json(err);
+  });
+
+});
+
+// Route for saving/updating an Article's associated Note
+app.post("/articles/:id", function(req, res) {
+  // TODO
+  // ====
+  // save the new note that gets posted to the Notes collection
+  // then find an article from the req.params.id
+  // and update it's "note" property with the _id of the new note
+  db.Note.create(req.body)
+  .then(function(dbNote) {
+    // View the added result in the console
+    console.log(dbNote);
+    db.Article.findOneAndUpdate({_id: mongoose.Types.ObjectId(req.params.id)},{note: dbNote.id})
+    .then(fullArt => {
+      res.json(fullArt);
+    })
+    .catch(function(err) {
+      // If an error occurred, log it
+      console.log(err);
+    });
+  })
+});
+
 
 
 // Start the server

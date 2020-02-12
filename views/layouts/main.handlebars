@@ -5,12 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="./assets/css/burger_style.css">
+    <link rel="stylesheet" type="text/css" href="./style.css">
     <script src="https://code.jquery.com/jquery.js"></script>
-    <script src="/assets/js/burger.js"></script>
-    <title>Eat Da Burger</title>
+    {{!-- <script src="../../public/app.js"></script> --}}
+    <title>Mongoose Scraper</title>
 </head>
 <body>
-    {{{body}}}
+    <nav class="navbar navbar-expand-lg navbar-light bg-dark fixed-top">
+  <a class="navbar-brand text-light" href="#">NYT Tech Scraper</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link text-light" href="/scrape">Scrape!<span class="sr-only">(current)</span></a>
+        {{!-- Aqui como hacía para que detonara el scrape? lo puedo mandar directo con el href? 
+        o tengo que usar jquery en app.js?  --}}
+      </li>
+    </ul>
+  </div>
+</nav>
+    <div class="root">
+            {{{body}}}
+
+    </div>
+
 </body>
 </html>

@@ -1,0 +1,41 @@
+<div class="container-fluid">
+    <div class="row justify-content-center" id="titleRow">
+        <div class="col-xs-12">
+            <h1>Mongoose Scraper!</h1>
+        </div>
+    </div>
+    <div class="row" id="newsDisplay">
+    <div class="col-xs-8" id="news">
+        <h2>Tech News</h2>
+        {{#each dbNews}}
+        {{!-- No puedo accesar a las propiedades del objeto, si esta jalandolo como objeto? --}}
+                {{!-- <p>{{this}}. {{this.headline}}</p> --}}
+        <div class="card" style="width: 46rem;">
+            <div class="card-body">
+                <h5 class="card-title">{{this.headline}}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">By {{this.author}}</h6>
+                <p class="card-text">{{this.summary}}</p>
+                <a href="https://www.nytimes.com/{{this.url}}" class="card-link">Link to article</a>
+            </div>
+        </div>
+
+        {{/each}}   
+    </div>
+    <div class="col-xs-4" id="notes">
+        <h2 id="alreadyDev">Notes</h2>
+        {{#each data}}
+        {{!-- Aqui van las notas, como lo paso? No puede ser solo con this.note. En actividad 20 
+        hay un atributo data-id. 
+        Se tienen que generar con el click?  --}}
+
+                <p>{{this.note}}</p>
+
+        {{/each}}
+    </div>
+        
+    </div>
+
+
+{{!-- {{data}} --}}
+
+</div>
