@@ -1,12 +1,12 @@
-/* .root {
-    top: 60px;
-    position: absolute;
-} */
-
 #newsDisplay {
     margin-top: 12px;
 }
 
 #notes {
     margin-left: 15px;
+}
+
+.root {
+    top: 60px;
+    position: absolute;
 }
