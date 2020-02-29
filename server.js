@@ -25,7 +25,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 // Make public a static folder
 app.use(express.static("./public"));
-
+// app.use(express.static("/public"));
 // app.use('/static', express.static(__dirname + '/public'));
 
 // Handlebars require
@@ -79,14 +79,16 @@ app.get("/scrape", function(req, res) {
       result.url = $(this).children().children().children().attr("href");
       result.author = $(this).children().children().children().children("div").children("p").children("span").text();
 
+      console.log("This is the result");
       console.log(result);
 
       // Create a new article using the result object built from scraping
       db.Article.create(result)
       .then(function(dbNews) {
         // View the added result in the console
+        console.log("This are de dbNews");
         console.log(dbNews);
-        res.json(dbNews);
+        // res.json(dbNews);
       })
       .catch(function(err) {
         // If an error ocurred, log it

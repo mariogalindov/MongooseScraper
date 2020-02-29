@@ -8,12 +8,14 @@ $.getJSON("/articles", function(data) {
   });
 
 // Whenever someone clicks a card
-$(document).on("click", "p", function() {
+$(document).on("click", ".card", function() {
     // Empty the notes from the note section
     $("#notes").empty();
     alert("This is working")
     // Save the id from the p tag
     var thisId = $(this).attr("data-id");
+    console.log(this);
+    console.log(data)
   
     // Now make an ajax call for the Article
     $.ajax({
