@@ -15,7 +15,6 @@ $(document).on("click", ".card", function() {
     // Save the id from the p tag
     var thisId = $(this).attr("data-id");
     console.log(this);
-    console.log(data)
   
     // Now make an ajax call for the Article
     $.ajax({
